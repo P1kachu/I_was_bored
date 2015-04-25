@@ -9,7 +9,7 @@ Little python script inspired from XKCD's geohashing algorithm (http://wiki.xkcd
 Based on time rather than stock actions :D
 
 ### II/ Fake Zip Compressor
-Stupid but entertaining. Fake compressor that instead of compressing the file, delete it and display an error message.
+Stupid but entertaining. Fake Windows compressor that instead of compressing the file, delete it and display an error message.
 
 
 
