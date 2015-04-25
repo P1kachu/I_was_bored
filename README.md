@@ -1,4 +1,4 @@
-# I was bored !
+# "I was bored and..."
 Random little programs, because I wanted to code
 
 ### I/ XKCD Inspired GeoHashing
