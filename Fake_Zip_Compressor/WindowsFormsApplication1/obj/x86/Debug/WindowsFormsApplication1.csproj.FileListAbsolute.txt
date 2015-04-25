@@ -1,0 +1,18 @@
+C:\Users\Mr. ST4N\Dropbox\Prog\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Mr. ST4N\Dropbox\Prog\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Mr. ST4N\Dropbox\Prog\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\Mr. ST4N\Dropbox\Prog\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\Mr. ST4N\Dropbox\Prog\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\Mr. ST4N\Dropbox\Prog\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+C:\Users\Mr. ST4N\Dropbox\Prog\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.manifest
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.application
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe.manifest
+C:\Users\Mr. ST4N\Dropbox\Prog\Compressor 2.1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.application
