@@ -6,10 +6,14 @@ Want to travel ? Don't know where to go ? Just Ask !
 
 Little python script inspired from XKCD's geohashing algorithm (http://wiki.xkcd.com/geohashing/Main_Page)
 
-Based on time rather than stock actions :D
+Based on time rather than stock actions :D (Python)
 
 ### II/ Fake Zip Compressor
-Stupid but entertaining. Fake Windows compressor that instead of compressing the file, delete it and display an error message.
+Stupid but entertaining. Fake Windows compressor that instead of compressing the file, delete it and display an error message. (C#)
 
+
+### III/ FBI Database
+
+Mac applications that simulates a FBI Database. Like in movies, ya know' ! (Swift)
 
 
