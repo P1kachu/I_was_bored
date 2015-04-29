@@ -17,3 +17,7 @@ Stupid but entertaining. Fake Windows compressor that instead of compressing the
 Mac applications that simulates a FBI Database. Like in movies, ya know' ! (Swift)
 
 
+### IV/ C++ Generators
+
+Generate a simple Makefile, main.cpp, project_name.h and project_name.cpp to begin any C++ project.
+Includes usual libraries in the header.
