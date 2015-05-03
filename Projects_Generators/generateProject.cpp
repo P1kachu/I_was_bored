@@ -75,15 +75,15 @@ void createMakefile(char *name[])
   cout << "> " <<  projectName.str().c_str() << endl;
   
   makefile << "## Simple Makefile\n\n";
-  makefile << "CC=clang\n\n";
-  makefile << "CPPFLAGS=\n";
-  makefile << "CFLAGS= -Wall -Wextra -Werror\n";
+  makefile << "CC=g++\n\n";
+  makefile << "CPPFLAGS=-Wall -Wextra -Werror\n";
+  makefile << "CFLAGS= \n";
   makefile << "LDFLAGS=\n";
+  makefile << "NAME=" << name[1] << "\n";
   makefile << "LDLIBS= \n\n";
-  makefile << "SRC= " << name[1] << ".cpp main.cpp\n";
-  makefile << "OBJ= ${SRC:.c=.o}\n\n";
-  makefile << "all: main\n\n";
-  makefile << "main: ${OBJ}\n\n";
+  makefile << "SRC= $(NAME).cpp main.cpp\n\n";
+  makefile << "all: \n\t$(CC) $(CPPFLAGS) $(SRC) -o $(NAME)\n\n";
+  makefile << "main: \n\n";
   makefile << "clean:\n";
   makefile << "\t" << "rm -f *~ *.o\n";
   makefile << "\t" << "rm -f main\n\n";
