@@ -27,7 +27,7 @@ Includes usual libraries in the header.
 
 ### V/ Random Scripts
 
-Random Python or Bash scripts I made for use{ful, less} purposes.
-- Check website for updates
-- Commit for Python projects
-- Random commits generator
+Random Python or shell scripts I made for use{ful, less} purposes.
+- Check website for updates (sh)
+- Commit for Python projects (sh)
+- Random commits generator (sh)
