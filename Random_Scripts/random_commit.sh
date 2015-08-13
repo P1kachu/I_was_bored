@@ -6,7 +6,7 @@ COMMIT_MESSAGE=$(curl http://whatthecommit.com/ 2> /dev/null | sed '40q;d'| cut 
 echo -e "\033[35;1mgit add -A\033[0m"
 git add -A
 
-echo -ne "\033[35;1mgit commit -m\033[0m $COMMIT_MESSAGE"
+echo -e "\033[35;1mgit commit -m\033[0m $COMMIT_MESSAGE"
 git commit -m "$COMMIT_MESSAGE"
 
 echo -ne "\033[35;1mgit status\033[0m: "
