@@ -23,3 +23,11 @@ For: C and C++
 
 Generate a simple Makefile, main, header and project file to begin any C/C++ project.
 Includes usual libraries in the header.
+
+
+### V/ Random Scripts
+
+Random Python or Bash scripts I made for use{ful, less} purposes.
+- Check website for updates
+- Commit for Python projects
+- Random commits generator
