@@ -76,7 +76,7 @@ void createMakefile(char *name[])
   
   makefile << "## Simple Makefile\n\n";
   makefile << "CC=g++\n\n";
-  makefile << "CPPFLAGS=-Wall -Wextra -Werror\n";
+  makefile << "CPPFLAGS=-Wall -Wextra -Werror -Wunused\n";
   makefile << "CFLAGS= \n";
   makefile << "LDFLAGS=\n";
   makefile << "NAME=" << name[1] << "\n";
