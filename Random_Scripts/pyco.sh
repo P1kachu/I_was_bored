@@ -28,9 +28,6 @@ git status -sb
 if [[ "$1" == "push" ]]
 then
     echo -ne "\033[35;1mgit push origin master\033[0m: "
-    PUSH='git push origin master'
-    if [[ $? -ne 0 ]]; then
-        echo $PUSH
-    fi
+    git push origin master
 fi
 echo -e "\033[36;1m- - - - - - - - - - - - - - - - - \033[0m"
