@@ -27,7 +27,7 @@ Includes usual libraries in the header.
 
 ### V/ Random Scripts
 
-Random Python or shell scripts I made for \*kof\* useful \*kof\* purposes.
+Random scripts I made for \*kof\* useful \*kof\* purposes.
 - Check website for updates (sh)
 - Commit for Python projects (sh)
 - Random commits generator (sh)
