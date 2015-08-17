@@ -1,4 +1,5 @@
 # XKCD inspired GeoHashing 
+![XKCD](http://imgs.xkcd.com/comics/geohashing.png)
 
 Want to travel ? Don't know where to go ? Just Ask !
 
