@@ -31,3 +31,4 @@ Random Python or shell scripts I made for \*kof\* useful \*kof\* purposes.
 - Check website for updates (sh)
 - Commit for Python projects (sh)
 - Random commits generator (sh)
+- Ticket formatter (sh)
