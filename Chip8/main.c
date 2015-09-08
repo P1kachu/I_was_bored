@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     srand(time(NULL));
     struct chip *chip = malloc(sizeof (struct chip));
     
-    char *game = argv[1] ? argv[1] : "pong2";
+    char *game = argv[1] ? argv[1] : "pong";
     setup_graphics(chip);
     setup_input(chip);
     
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     if(load_game(chip, game))
         return -1;
 
-    int tmp = 100000 / SCREEN_EXPANSION;
+    int tmp = 200000 / SCREEN_EXPANSION;
     // int tmp = 0;
 
     printf("%s Launching emulation... (%d iterations)\n\n", DEBUG, tmp ? tmp : -1);
@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
         if (draw)
             update_graphics(chip);
         // set_keys(chip);
-        sleep(1/60); // Temporary 60Mhz
     }
     return 0;
 }

@@ -6,13 +6,12 @@
 #  include <string.h>
 #  include <time.h>
 #  include <unistd.h>
-// #  include <curses.h>
 #  include "kbhit.h"
 #  include "pixel_operations.h"
 
 #  define IGNORE_UNUSED(x) { x = x; }
 
-#  define SCREEN_EXPANSION 5
+#  define SCREEN_EXPANSION 10
 #  define GAME_DIRECTORY   "games/"
 #  define SCREEN_HEIGHT    32 
 #  define SCREEN_WIDTH     64

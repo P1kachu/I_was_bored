@@ -498,8 +498,8 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
     
     if (chip->sound_timer > 0)
     {
-        // if (chip->sound_timer == 1)
-        //     printf("%s BEEP\n", DEBUG);
+        if (chip->sound_timer == 1)
+            printf("%s BEEP\n", DEBUG);
         --chip->sound_timer;
     }
 }
