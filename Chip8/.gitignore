@@ -1,0 +1,4 @@
+*.txt
+.gdb_history
+*.cpp
+emulator
