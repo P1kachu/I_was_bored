@@ -1,11 +1,13 @@
-CppProjectGenerator
+Project Generators
 ===================
 
-Generate a simple Makefile, main.cpp, project_name.h and project_name.cpp to begin any C++ project.
+<img src="https://raw.githubusercontent.com/P1kachu/I_was_bored/master/Projects_Generators/.demo.png" "width="75" height="75"/>
+
+Generate a simple Makefile, main.cpp, project_name.h and project_name.cpp to begin any C or C++ project.
 Includes usual libraries in the header.
 
 compile generateProject.cpp with:
-> g++ generateProject.cpp
+> clang++ generateProject.cpp
 
 then create your project by calling the output:
-> ./a.out project_name
+> ./a.out PROJECT_NAME

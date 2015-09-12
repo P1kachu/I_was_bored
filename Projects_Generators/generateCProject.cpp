@@ -43,7 +43,7 @@ void create_c_File(char *name[])
   stringstream projectName;
   projectName <<name[1] << "/" << name[1] << ".c";
   cpp.open(projectName.str().c_str());
-  cout << "> " <<  projectName.str().c_str() << endl;
+  cout << "> Creating " <<  projectName.str().c_str() << endl;
   cpp << "#include \"" << name[1] << ".h\"\n";
   cpp.close();
 }
@@ -54,7 +54,7 @@ void create_header_file(char *name[])
   stringstream projectName;
   projectName << name[1] << "/" << name[1] << ".h";
   h.open(projectName.str().c_str());
-  cout << "> " <<  projectName.str().c_str() << endl;
+  cout << "> Creating " <<  projectName.str().c_str() << endl;
   string upper = name[1];
   for(int i = 0; upper[i]; i++)
     upper[i] = toupper(upper[i]);
@@ -74,7 +74,7 @@ void create_Makefile(char *name[])
   stringstream projectName;
   projectName << name[1] << "/" << "Makefile";
   makefile.open(projectName.str().c_str());
-  cout << "> " <<  projectName.str().c_str() << endl;
+  cout << "> Creating " <<  projectName.str().c_str() << endl;
   
   makefile << "## Simple Makefile\n\n";
   makefile << "CC=gcc\n\n";
@@ -99,7 +99,7 @@ void create_main(char *name[])
   stringstream projectName;
   projectName <<name[1] << "/main.c";
   main.open(projectName.str().c_str());
-  cout << "> " <<  projectName.str().c_str() << endl;
+  cout << "> Creating " <<  projectName.str().c_str() << endl;
   main << "#include \"" << name[1] << ".h\"\n\n";
   main << "int main(int argc, char* argv[])\n{\n\n    IGNORE_UNUSED(argc);\n    IGNORE_UNUSED(argv);\n\n    return 0;\n}";
   main.close();
