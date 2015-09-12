@@ -62,6 +62,7 @@ void create_header_file(char *name[])
   h << "#include <stdio.h>" << endl;
   h << "#include <stdlib.h>" << endl;
   h << "#ifndef " << upper << "_H" << endl;
+  h << "# define IGNORE_UNUSED(x) { x = x; }" << endl << endl;
   h << "# define " << upper << "_H" << endl << endl << endl;
   h << "#endif /* !" << upper << "_H */" << endl;
   h.close();
@@ -100,6 +101,6 @@ void create_main(char *name[])
   main.open(projectName.str().c_str());
   cout << "> " <<  projectName.str().c_str() << endl;
   main << "#include \"" << name[1] << ".h\"\n\n";
-  main << "int main(int argc, char* argv[])\n{\n\n    return 42;\n}";
+  main << "int main(int argc, char* argv[])\n{\n\n    IGNORE_UNUSED(argc);\n    IGNORE_UNUSED(argv);\n\n    return 0;\n}";
   main.close();
 }
