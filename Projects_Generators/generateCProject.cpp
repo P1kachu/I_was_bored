@@ -78,7 +78,13 @@ void create_Makefile(char *name[])
   
   makefile << "## Simple Makefile\n\n";
   makefile << "CC=gcc\n\n";
-  makefile << "CFLAGS= -Wall -Wextra -Werror -Wunused\n";
+  makefile << "CFLAGS= -Wall -Wextra -Werror -Wunused -std=c99 -pedantic"
+    " -Wfloat-equal -Wundef -Wshadow -Wpointer-arith"
+    " -Wbad-function-cast -Wcast-qual -Wcast-align"
+    " -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes"
+    " -Wmissing-declarations -Wnested-externs"
+    " -Wunreachable-code\n";
+
   makefile << "LDFLAGS=\n";
   makefile << "NAME=" << name[1] << "\n";
   makefile << "LDLIBS= \n\n";
