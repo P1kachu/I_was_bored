@@ -13,7 +13,7 @@
 
 #  define SCREEN_EXPANSION 10
 #  define GAME_DIRECTORY   "games/"
-#  define SCREEN_HEIGHT    32
+#  define SCREEN_HEIGHT    32 
 #  define SCREEN_WIDTH     64
 #  define WARNING          "\033[33;1m[WARNING]\033[0m"
 #  define ERROR            "\033[31;1m[ERROR  ]\033[0m"
@@ -30,17 +30,17 @@ struct chip
      0x0EA0 - 0x0EFF = Call stack, internal use, variables
      0x0F00 - 0x0FFF = Display refresh
      */
-
+    
     size_t draw_flag;
-
+    
     unsigned short I;          // instructions pointer
     unsigned short pc;         // program counter
     unsigned short sp;         // stack pointer
     unsigned short opcode;
     unsigned short stack[16];
-
+    
     SDL_Surface *screen;
-
+    
     unsigned char V[16];      // V0-VF regs
     unsigned char keys[16];   // keypad
     unsigned char delay_timer;

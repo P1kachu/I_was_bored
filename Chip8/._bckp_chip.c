@@ -21,11 +21,11 @@ void load_fontset(struct chip *chip)
         0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
         0xF0, 0x80, 0xF0, 0x80, 0x80  // F
     };
-
+    
     for (int i = 0; i < 80; ++i)
         chip->memory[i] = chip8_fontset[i];
     // chip->memory[0x50 + i] = chip8_fontset[i];
-
+    
     printf("%s Font loaded.\n", DEBUG);
 }
 
@@ -52,25 +52,25 @@ void setup_input(struct chip *chip)
 void init_chip(struct chip *chip)
 {
     // Initialize the chip
-
+    
     chip->pc = 0x200;
     chip->opcode = 0;
     chip->I = 0;
     chip->sp = 0;
-
+    
     clear_screen(chip);
-
+    
     memset(chip->V, 0, 16);
     memset(chip->keys, 0, 16);
     memset(chip->stack, 0, 16);
     memset(chip->memory, 0, 4096);
-
+    
     load_fontset(chip);
-
+    
     chip->delay_timer = 0;
     chip->sound_timer = 0;
     chip->draw_flag = 1;
-
+    
     printf("%s Chip initialized.\n", DEBUG);
 }
 
@@ -86,26 +86,26 @@ int load_game(struct chip *chip, char *game)
         printf("%s Couldn't open file\n", ERROR);
         exit(-1);
     }
-
+    
     fseek(rom, 0L, SEEK_END);
     size_t sz = ftell(rom);
     fseek(rom, 0L, SEEK_SET);
     printf("%s size of rom: %lu bytes\n", DEBUG, sz);
-
+    
     char *buffer = (char *)malloc(sizeof (char) *sz);
     if (!buffer)
     {
         printf("%s Couldn't allocate buffer\n", ERROR);
         exit(-1);
     }
-
+    
     size_t result = fread(buffer, 1, sz, rom);
     if (result != sz)
     {
         printf("%s while reading rom\n", ERROR);
         exit(-1);
     }
-
+    
     if ((4096 - 512) > sz)
         for (size_t i = 0; i < sz; ++i)
             chip->memory[i + 512] = buffer[i];
@@ -114,7 +114,7 @@ int load_game(struct chip *chip, char *game)
         printf("%s ROM too big \n", ERROR);
         exit(-1);
     }
-
+    
     fclose(rom);
     free(buffer);
     return 0;
@@ -122,7 +122,7 @@ int load_game(struct chip *chip, char *game)
 
 void update_graphics(struct chip *chip)
 {
-    for (int i = 0; i < SCREEN_WIDTH; ++i)
+    for(int i = 0; i < SCREEN_WIDTH; ++i)
     {
         for (int j = 0; j < SCREEN_HEIGHT; ++j)
         {
@@ -165,17 +165,17 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 clear_screen(chip);
                 chip->pc += 2;
                 break;
-
+                
             case 0x00EE:
                 // return from subroutine
                 chip->pc = chip->stack[--chip->sp] + 2;
                 break;
-
+                
             case 0x0000:
                 printf("%s Invalid instruction (opcode 0x%04X)\n", ERROR, opcode);
                 exit(-1);
                 break;
-
+                
             default:
                 printf("%s RCA_1802 (not implemented)\n", ERROR);
                 // rca_1802(chip, (opcode & 0xFFF));
@@ -187,14 +187,14 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
             // 1NNN Jumps to address NNN.
             chip->pc = (opcode & 0x0FFF);
             break;
-
+            
         case 0x2000:
             // 2NNN Calls subroutine at NNN.
             chip->stack[chip->sp] = chip->pc;
             ++chip->sp;
             chip->pc = (opcode & 0x0FFF);
             break;
-
+            
         case 0x3000:
             // 3XNN Skips the next instruction if VX equals NN.
             if (chip->V[(opcode & 0x0F00) >> 8] == (opcode & 0x00FF))
@@ -202,7 +202,7 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
             else
                 chip->pc += 2;
             break;
-
+            
         case 0x4000:
             // 4XNN Skips the next instruction if VX doesn't equal NN.
             if (chip->V[(opcode & 0x0F00) >> 8] != (opcode & 0x00FF))
@@ -210,7 +210,7 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
             else
                 chip->pc += 2;
             break;
-
+            
         case 0x5000:
             // 5XY0 Skips the next instruction if VX equals VY.
             if (chip->V[(opcode & 0x0F00) >> 8] == chip->V[(opcode & 0x00F0) >> 4])
@@ -218,19 +218,19 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
             else
                 chip->pc += 2;
             break;
-
+            
         case 0x6000:
             // 6XNN Sets VX to NN.
             chip->V[(opcode & 0x0F00) >> 8] = (opcode & 0x00FF);
             chip->pc += 2;
             break;
-
+            
         case 0x7000:
             // 7XNN Adds NN to VX.
             chip->V[(opcode & 0x0F00) >> 8] += (opcode & 0x00FF);
             chip->pc += 2;
             break;
-
+            
         case 0x8000:
             switch((opcode & 0xF))
         {
@@ -239,25 +239,25 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 chip->V[(opcode & 0x0F00) >> 8] = chip->V[(opcode & 0x00F0) >> 4];
                 chip->pc += 2;
                 break;
-
+                
             case 1:
                 // 8XY1 Sets VX to VX or VY.
                 chip->V[(opcode & 0x0F00) >> 8] |= chip->V[(opcode & 0x00F0) >> 4];
                 chip->pc += 2;
                 break;
-
+                
             case 2:
                 // 8XY2 Sets VX to VX and VY.
                 chip->V[(opcode & 0x0F00) >> 8] &= chip->V[(opcode & 0x00F0) >> 4];
                 chip->pc += 2;
                 break;
-
+                
             case 3:
                 // 8XY3 Sets VX to VX xor VY.
                 chip->V[(opcode & 0x0F00) >> 8] ^= chip->V[(opcode & 0x00F0) >> 4];
                 chip->pc += 2;
                 break;
-
+                
             case 4:
                 // 8XY4 Adds VY to VX. VF is set to 1 when there's a carry, and to 0 when there isn't.
                 if (chip->V[(opcode & 0x00F0) >> 4] > (0xFF - chip->V[(opcode & 0x0F00) >> 8]))
@@ -267,7 +267,7 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 chip->V[(opcode & 0x0F00) >> 8] += chip->V[(opcode & 0x00F0) >> 4];
                 chip->pc += 2;
                 break;
-
+                
             case 5:
                 // 8XY5 VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't.
                 if (chip->V[(opcode & 0x00F0) >> 4] > chip->V[(opcode & 0x0F00) >> 8])
@@ -277,14 +277,14 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 chip->V[(opcode & 0x0F00) >> 8] -= chip->V[(opcode & 0x00F0) >> 4];
                 chip->pc += 2;
                 break;
-
+                
             case 6:
                 // 8XY6 Shifts VX >> 1. VF is set to the value of the least significant bit of VX before the shift.
                 chip->V[0xF] = (chip->V[(opcode & 0x0F00) >> 8] & 0x1);
                 chip->V[(opcode & 0x0F00) >> 8] >>= 1;
                 chip->pc += 2;
                 break;
-
+                
             case 7:
                 // 8XY7 Sets VX to VY minus VX. VF is set to 0 when there's a borrow, and 1 when there isn't.
                 if (chip->V[(opcode & 0x0F00) >> 8] > chip->V[(opcode & 0x00F0) >> 4])
@@ -294,20 +294,20 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 chip->V[(opcode & 0x0F00) >> 8] = chip->V[(opcode & 0x00F0) >> 4] - chip->V[(opcode & 0x0F00) >> 8];
                 chip->pc += 2;
                 break;
-
+                
             case 0xE:
                 // 8XYE Shifts VX << 1. VF is set to the value of the most significant bit of VX before the shift
                 chip->V[0xF] = (chip->V[(opcode & 0x0F00) >> 8] >> 7);
                 chip->V[(opcode & 0x0F00) >> 8] <<= 1;
                 chip->pc += 2;
                 break;
-
+                
             default:
                 printf("%s Invalid instruction (opcode 0x%04X)\n", ERROR, opcode);
                 exit(-1);
         }
             break;
-
+            
         case 0x9000:
             // 9XY0 Skips the next instruction if VX doesn't equal VY.
             if (chip->V[(opcode & 0x0F00) >> 8] != chip->V[(opcode & 0x00F0) >> 4])
@@ -315,24 +315,24 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
             else
                 chip->pc += 2;
             break;
-
+            
         case 0xA000:
             // ANNN Sets I to the address NNN.
             chip->I = (opcode & 0xFFF);
             chip->pc += 2;
             break;
-
+            
         case 0xB000:
             // BNNN Jumps to the address NNN plus V0.
             chip->pc = chip->V[0] + (opcode & 0x0FFF);
             break;
-
+            
         case 0xC000:
             // CXNN Sets VX to the result of a bitwise and operation on a random number and NN.
             chip->V[(0x0FFF & opcode) >> 8] = ((rand() % 0x00FF) & (opcode & 0x00FF));
             chip->pc += 2;
             break;
-
+            
         case 0xD000:
         {
             /* Sprites stored in memory at location in index register (I), 8bits wide.
@@ -347,16 +347,16 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
             unsigned short y = (opcode & 0x00F0) >> 4;
             unsigned short length = (opcode & 0x000F);
             unsigned short pixel;
-
+            
             chip->V[0xF] = 0;
             for (int j = 0; j < length; j++)
             {
                 pixel = chip->memory[chip->I + j];
-                for (int i = 0; i < 8; i++)
+                for(int i = 0; i < 8; i++)
                 {
-                    if ((pixel & (0x80 >> i)) != 0)
+                    if((pixel & (0x80 >> i)) != 0)
                     {
-                        if (chip->gfx[(x + i + ((y + j) * SCREEN_WIDTH))] == 1)
+                        if(chip->gfx[(x + i + ((y + j) * SCREEN_WIDTH))] == 1)
                         {
                             chip->V[0xF] = 1;
                         }
@@ -368,7 +368,7 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
             chip->pc += 2;
         }
             break;
-
+            
         case 0xE000:
             switch(opcode & 0x00FF)
         {
@@ -379,7 +379,7 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 else
                     chip->pc += 2;
                 break;
-
+                
             case 0x00A1:
                 // Skips the next instruction if the key stored in VX isn't pressed.
                 if (chip->keys[chip->V[(opcode & 0x0FFF) >> 8]] == 0)
@@ -387,14 +387,14 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 else
                     chip->pc += 2;
                 break;
-
+                
             default:
                 printf("%s Invalid instruction (opcode 0x%04X)\n", ERROR, opcode);
                 exit(-1);
                 break;
         }
             break;
-
+            
         case 0xF000:
             switch(opcode & 0x00FF)
         {
@@ -403,14 +403,14 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 chip->V[(opcode & 0x0F00) >> 8] = chip->delay_timer;
                 chip->pc += 2;
                 break;
-
+                
             case 0x000A:
             {
                 // FX0A A key press is awaited, and then stored in VX.
                 int key_pressed = 0;
                 for (int i = 0; i < 16; ++i)
                 {
-                    if (chip->keys[i] != 0)
+                    if (chip->keys[i] != 0) 
                     {
                         chip->V[(opcode & 0x0F00) >> 8] = i;
                         key_pressed = 1;
@@ -418,41 +418,41 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 }
                 if (!key_pressed)
                     return;
-
+                
                 printf("%s Key pressed (keys[%d])\n", DEBUG, chip->V[(opcode & 0x0F00) >> 8]);
                 chip->pc += 2;
             }
                 break;
-
+                
             case 0x0015:
                 // FX15 Sets the delay timer to VX.
                 chip->delay_timer = chip->V[(opcode & 0x0F00) >> 8];
                 chip->pc += 2;
                 break;
-
+                
             case 0x0018:
                 // FX18 Sets the sound timer to VX.
                 chip->sound_timer = chip->V[(opcode & 0x0F00) >> 8];
                 chip->pc += 2;
                 break;
-
+                
             case 0x001E:
                 // FX1E Adds VX to I.
                 if (chip->I + chip->V[(opcode & 0x0F00) >> 8] > 0xFFF)
                     chip->V[0xF] = 1;
                 else
                     chip->V[0xF] = 0;
-
+                
                 chip->I += chip->V[(opcode & 0x0F00) >> 8];
                 chip->pc += 2;
                 break;
-
+                
             case 0x0029:
                 // Sets I to the loc of the sprite for the char in VX. Characters 0-F are represented by a 4x5 font.
                 chip->I = chip->V[(opcode & 0x0F00) >> 8] * 0x5;
                 chip->pc += 2;
                 break;
-
+                
             case 0x0033:
                 // Stores the Binary-coded decimal representation of VX,
                 // with the most significant of three digits at the address in I,
@@ -462,7 +462,7 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 chip->memory[chip->I + 2] = (chip->V[(opcode & 0x0F00) >> 8] % 100) % 10;
                 chip->pc += 2;
                 break;
-
+                
             case 0x0055:
                 // FX55 Stores V0 to VX in memory starting at address I
                 for (int i = 0; i < (((opcode & 0x0F00) >> 8) + 1); ++i)
@@ -471,7 +471,7 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 // On the original interpreter, when the operation is done, I = I + X + 1.
                 // chip->I += ((opcode & 0x0F00) >> 8) + 1;
                 break;
-
+                
             case 0x0065:
                 // FX65 Fills V0 to VX with values from memory starting at address I
                 for (int i = 0; i < (((opcode & 0x0F00) >> 8) + 1); ++i)
@@ -480,22 +480,22 @@ void decode_opcode(struct chip *chip, unsigned short opcode)
                 // On the original interpreter, when the operation is done, I = I + X + 1.
                 // chip->I += ((opcode & 0x0F00) >> 8) + 1;
                 break;
-
+                
             default:
                 printf("%s Invalid instruction (opcode 0x%04X)\n", ERROR, opcode);
                 exit(-1);
                 break;
         }
             break;
-
+            
         default:
             printf("%s Invalid instruction (opcode 0x%04X)\n", ERROR, opcode);
             exit(-1);
     }
-
+    
     if (chip->delay_timer > 0)
         --chip->delay_timer;
-
+    
     if (chip->sound_timer > 0)
     {
         if (chip->sound_timer == 1)
@@ -510,7 +510,7 @@ void set_keys(struct chip *chip)
         chip->keys[i] = 0;
 
     int c;
-    if (!kbhit())
+    if(!kbhit())
         return;
 
     c = getchar();

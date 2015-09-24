@@ -7,7 +7,7 @@ static int peek_character = -1;
 
 void init_keyboard()
 {
-    tcgetattr(0, &initial_settings);
+    tcgetattr(0,&initial_settings);
     new_settings = initial_settings;
     new_settings.c_lflag &= ~ICANON;
     new_settings.c_lflag &= ~ECHO;
@@ -30,10 +30,10 @@ int nread;
     if (peek_character != -1) return 1;
     new_settings.c_cc[VMIN]=0;
     tcsetattr(0, TCSANOW, &new_settings);
-    nread = read(0, &ch, 1);
+    nread = read(0,&ch,1);
     new_settings.c_cc[VMIN]=1;
     tcsetattr(0, TCSANOW, &new_settings);
-    if (nread == 1)
+    if(nread == 1)
     {
         peek_character = ch;
         return 1;
@@ -45,12 +45,12 @@ int readch()
 {
 char ch;
 
-    if (peek_character != -1)
+    if(peek_character != -1)
     {
         ch = peek_character;
         peek_character = -1;
         return ch;
     }
-    read(0, &ch, 1);
+    read(0,&ch,1);
     return ch;
 }

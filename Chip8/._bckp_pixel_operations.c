@@ -62,24 +62,24 @@ SDL_Surface *display_image(SDL_Surface *img)
                img->w, img->h, SDL_GetError());
         exit(-1);
     }
-
+    
     if (SDL_BlitSurface(img, NULL, screen, NULL) < 0)
         printf("BlitSurface error: %s\n", SDL_GetError());
-
+    
     SDL_UpdateRect(screen, 0, 0, img->w, img->h);
-
+    
     return screen;
 }
 
-SDL_Surface *create_screen(int width, int height)
+SDL_Surface* create_screen(int width, int height)
 {
-    SDL_Surface *img;
-    img = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 1);
+    SDL_Surface* img;
+    img = SDL_CreateRGBSurface(0, width, height,32,0,0,0,1);
     for (int i = 0; i < width; ++i)
         for (int j = 0; j < height; ++j)
             putpixel(img, i, j, SDL_MapRGB(img->format, 255, 255, 255));
-
-    if (!img)
+    
+    if(!img)
     {
         printf("\033[31;1m [ERROR  ]\033[0m Couldn't create screen.\n");
         exit(-1);
