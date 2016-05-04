@@ -36,8 +36,8 @@ def print_verbose(string):
         print(string)
 
 
-def handle_tarxz(f):
-    print_verbose("{0} Handling TAR/XZ file ({1})".format(green("[+]"), f))
+def handle_tarxzgzip(f):
+    print_verbose("{0} Handling TAR/XZ/GZIP file ({1})".format(green("[+]"), f))
     try:
         tar = tarfile.open(f)
         tar.extractall(OUTPUT_DIR)
@@ -47,7 +47,7 @@ def handle_tarxz(f):
 
 def decompress(args):
     if args.file:
-        files = args.file
+        files = [args.file]
     else:
         files = [f for f in os.listdir('.') if os.path.isfile(f)]
 
@@ -71,9 +71,11 @@ def decompress(args):
 
                # ADD EXTENSIONS HERE
         if "tar" in  output:
-            handle_tarxz(f)
+            handle_tarxzgzip(f)
         elif "xz" in output:
-            handle_tarxz(f)
+            handle_tarxzgzip(f)
+        elif "gzip" in output:
+            handle_tarxzgzip(f)
         else:
             print_verbose("[ ] Unkown file type: {0}".format(output))
 
