@@ -32,6 +32,7 @@ Random scripts I made for \*kof\* useful \*kof\* purposes.
 - Commit for Python projects (sh)
 - Random commits generator (sh)
 - Ticket formatter (sh)
+- QEE (Quickly Extract Everything) (py)
 
 ### VI/ Chip8 emulator
-Self explanatory.    
+Self explanatory.
