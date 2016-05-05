@@ -123,7 +123,7 @@ def decompress(args):
             nb_of_fails += handle_tarxzgzip(f)
         elif "gzip" in output:
             nb_of_fails += handle_tarxzgzip(f)
-        elif "7-zip" in output:
+        elif "zip" in output:
             nb_of_fails += handle_7z(f)
         else:
             nb_of_unknowns += 1
