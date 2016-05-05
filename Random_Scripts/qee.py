@@ -17,7 +17,12 @@ import shutil
 import lzma
 
 OUTPUT_DIR = "qee_output"
-
+AVOID=['txt',
+        'jpeg',
+        'jpg',
+        'png',
+        'html',
+        'ascii text']
 
 def red(string):
     return "\033[31;1m{0}\033[0m".format(string)
@@ -117,6 +122,9 @@ def decompress(args):
         # Could factorise this,
         # but easier to read like
         # that
+        if [x for x in AVOID if x in output]:
+            print_verbose("[ ] Not an archive, skipping ({0})".format(f))
+            continue
         if "tar" in  output:
             nb_of_fails += handle_tarxzgzip(f)
         elif "xz" in output:
