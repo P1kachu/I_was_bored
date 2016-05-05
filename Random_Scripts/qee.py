@@ -37,6 +37,17 @@ def print_verbose(string):
     if not args.silent:
         print(string)
 
+def handle_7z(f):
+    print_verbose("{0} Handling 7z file ({1})".format(green("[+]"), f))
+    try:
+        p = sub.call(['7z', 'x', '-y', '-o' + OUTPUT_DIR, f],stdout=sub.PIPE,stderr=sub.PIPE)
+        print("{0} Extraction done: {1}".format(green('[+]'), f))
+    except Exception as e:
+        print("{0} Extraction fail: {1}".format(red("[-]"), f))
+        print_verbose("{0} Error: {1}".format(red("[-]"), e))
+        return 1
+    return 0
+
 
 def handle_tarxzgzip(f):
     print_verbose("{0} Handling TAR/XZ/GZIP file ({1})".format(green("[+]"), f))
@@ -112,6 +123,8 @@ def decompress(args):
             nb_of_fails += handle_tarxzgzip(f)
         elif "gzip" in output:
             nb_of_fails += handle_tarxzgzip(f)
+        elif "7-zip" in output:
+            nb_of_fails += handle_7z(f)
         else:
             nb_of_unknowns += 1
             print_verbose("[ ] {0}: Unkown file type ({1})".format(f, output))
