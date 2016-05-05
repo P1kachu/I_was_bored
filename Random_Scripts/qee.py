@@ -151,4 +151,9 @@ if __name__ in "__main__":
 
     decompress(args)
 
+    try:
+        os.rmdir(OUTPUT_DIR)
+    except OSError as ex:
+        print_verbose("{0} Output written to /{1}".format(green('[+]'), OUTPUT_DIR))
+
 
