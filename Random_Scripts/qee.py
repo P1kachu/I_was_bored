@@ -45,7 +45,7 @@ def print_verbose(string):
 def handle_zip(f):
     print_verbose("{0} Handling zip file ({1})".format(green("[+]"), f))
     try:
-        p = sub.call(['unzip', '-d' + OUTPUT_DIR, f],stdout=sub.PIPE,stderr=sub.PIPE)
+        p = sub.call(['unzip', '-d{0}'.format(OUTPUT_DIR), f])
         print("{0} Extraction done: {1}".format(green('[+]'), f))
     except Exception as e:
         print("{0} Extraction fail: {1}".format(red("[-]"), f))
