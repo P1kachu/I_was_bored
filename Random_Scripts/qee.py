@@ -22,7 +22,8 @@ AVOID=['txt',
         'jpg',
         'png',
         'html',
-        'ascii text']
+        'ascii text',
+        'rom']
 
 def red(string):
     return "\033[31;1m{0}\033[0m".format(string)
@@ -42,8 +43,8 @@ def print_verbose(string):
     if not args.silent:
         print(string)
 
-def handle_zip(f):
-    print_verbose("{0} Handling zip file ({1})".format(green("[+]"), f))
+def handle_zipjar(f):
+    print_verbose("{0} Handling ZIP/JAR file ({1})".format(green("[+]"), f))
     try:
         p = sub.call(['unzip', '-d{0}'.format(OUTPUT_DIR), f])
         print("{0} Extraction done: {1}".format(green('[+]'), f))
@@ -58,7 +59,6 @@ def handle_7z(f):
     print_verbose("{0} Handling 7z file ({1})".format(green("[+]"), f))
     try:
         p = sub.check_output(['7z', 'x', '-o{0}'.format(OUTPUT_DIR), f])
-        print(sub.PIPE)
         print("{0} Extraction done: {1}".format(green('[+]'), f))
     except Exception as e:
         print("{0} Extraction fail: {1}".format(red("[-]"), f))
@@ -67,8 +67,8 @@ def handle_7z(f):
     return 0
 
 
-def handle_tarxzgzip(f):
-    print_verbose("{0} Handling TAR/XZ/GZIP file ({1})".format(green("[+]"), f))
+def handle_tarxzgzipbzip(f):
+    print_verbose("{0} Handling TAR/XZ/GZIP/BZIP file ({1})".format(green("[+]"), f))
     try:
         tar = tarfile.open(f)
         tar.extractall(OUTPUT_DIR)
@@ -132,22 +132,18 @@ def decompress(args):
         output = cut_output(output)
 
         # ADD EXTENSIONS HERE
-        # Could factorise this,
-        # but easier to read like
-        # that
         if [x for x in AVOID if x in output]:
             print_verbose("[ ] Not an archive, skipping ({0})".format(f))
             continue
-        if "tar" in  output:
-            nb_of_fails += handle_tarxzgzip(f)
-        elif "xz" in output:
-            nb_of_fails += handle_tarxzgzip(f)
-        elif "gzip" in output:
-            nb_of_fails += handle_tarxzgzip(f)
+        if ("tar" in  output
+                or "xz" in output
+                or "gzip" in output
+                or "bzip" in output):
+            nb_of_fails += handle_tarxzgzipbzip(f)
         elif "7-zip" in output or "7z" in output:
             nb_of_fails += handle_7z(f)
-        elif "zip" in output:
-            nb_of_fails += handle_zip(f)
+        elif "zip" in output or "jar" in output:
+            nb_of_fails += handle_zipjar(f)
         else:
             nb_of_unknowns += 1
             print_verbose("[ ] {0}: Unkown file type ({1})".format(f, output))
