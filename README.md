@@ -39,3 +39,12 @@ Random scripts I made for \*kof\* useful \*kof\* purposes.
 
 ### VI/ Chip8 emulator
 Self explanatory.
+
+### VII/ FlyingHamtaro
+A little C++ game starring Hamtaro (using SFML)
+
+> make && ./hamtaro
+
+Enjoy :)
+
+Requires SFML and clang++
