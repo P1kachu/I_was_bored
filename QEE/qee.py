@@ -22,7 +22,8 @@ AVOID=[' txt ',
         ' jpg ',
         ' png ',
         ' html ',
-        ' ascii text ',
+        'ascii text',
+
         ' rom ']
 
 def red(string):
@@ -112,7 +113,10 @@ def decompress(args):
 
     # Output directory
     if args.override:
-        shutil.rmtree(OUTPUT_DIR)
+        try:
+            shutil.rmtree(OUTPUT_DIR)
+        except:
+            pass
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
     else:
