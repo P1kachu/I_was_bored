@@ -47,7 +47,7 @@ def handle_zipjar(f):
     print_verbose("{0} Handling ZIP/JAR file ({1})".format(green("[+]"), f))
     try:
         p = sub.call(['unzip', '-d{0}'.format(OUTPUT_DIR), f])
-        print("{0} Extraction done: {1}".format(green('[+]'), f))
+        print_verbose("{0} Extraction done: {1}".format(green('[+]'), f))
     except Exception as e:
         print("{0} Extraction fail: {1}".format(red("[-]"), f))
         print_verbose("{0} Error: {1}".format(red("[-]"), e))
@@ -59,7 +59,7 @@ def handle_7z(f):
     print_verbose("{0} Handling 7z file ({1})".format(green("[+]"), f))
     try:
         p = sub.check_output(['7z', 'x', '-o{0}'.format(OUTPUT_DIR), f])
-        print("{0} Extraction done: {1}".format(green('[+]'), f))
+        print_verbose("{0} Extraction done: {1}".format(green('[+]'), f))
     except Exception as e:
         print("{0} Extraction fail: {1}".format(red("[-]"), f))
         print_verbose("{0} Error: {1}".format(red("[-]"), e))
@@ -73,7 +73,7 @@ def handle_tarxzgzipbzip(f):
         tar = tarfile.open(f)
         tar.extractall(OUTPUT_DIR)
         tar.close()
-        print("{0} Extraction done: {1}".format(green('[+]'), f))
+        print_verbose("{0} Extraction done: {1}".format(green('[+]'), f))
     except Exception as e:
         # Some files are tar.xz, others are only .xz
         # Handling of .xz here
@@ -133,7 +133,6 @@ def decompress(args):
 
         # ADD EXTENSIONS HERE
         if [x for x in AVOID if x in output]:
-            print(output)
             print_verbose("[ ] Not an archive, skipping ({0})".format(f))
             continue
         if ("tar" in  output
