@@ -35,7 +35,6 @@ Was mostly used in 3rd year to get ready for rushs
 Random scripts I made for \*kof\* useful \*kof\* purposes.
 - Check website for updates (sh): Simple but effective, informs you when a website has changed.
 - Random commits generator (sh): Get one stupid message from whatthecommit, and commits with it (this repo uses it)
-- QEE (Quickly Extract Everything) (py): Extracts every archive in the current directory (WIP)
 
 ### VI/ Chip8 emulator
 Self explanatory.
@@ -48,3 +47,6 @@ A little C++ game starring Hamtaro (using SFML)
 Enjoy :)
 
 Requires SFML and clang++
+
+### VIII/ QEE
+Qee (Quickly Extract Everything) extracts every archive in the current directory (WIP)
